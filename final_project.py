@@ -12,8 +12,6 @@ import toml, geohash, ast
 config = toml.load('credential.toml')
 api_key = config['api']['key']
 genai.configure(api_key=api_key)
-MODEL_ROLE = 'ai'
-AI_AVATAR_ICON = '✨'
 
 if 'chat' not in st.session_state:
   st.session_state.model = genai.GenerativeModel('gemini-1.5-flash')
@@ -78,7 +76,7 @@ st.title("Restaurant Insights and Recommendations")
 st.markdown("<style> .stMainBlockContainer {padding-top: 3rem;} </style>", unsafe_allow_html=True)
 
 with st.sidebar:
-  uploaded_file = st.file_uploader(label="", type="csv")
+  uploaded_file = st.file_uploader(label="uploaded_file", type="csv", label_visibility="hidden")
   if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
     data = add_geohash5_column(data)
